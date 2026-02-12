@@ -4,6 +4,8 @@
 // @version 0.1
 // @match *://jira.russianpost.ru/browse/*
 // @grant none
+// @updateURL    https://raw.githubusercontent.com/Dedok3d/Tempo-Template-Menu/refs/heads/master/tampermonkey.js
+// @downloadURL  https://raw.githubusercontent.comhttps://raw.githubusercontent.com/Dedok3d/Tempo-Template-Menu/refs/heads/master/tampermonkey.js
 // ==/UserScript==
 
 const styles = `
