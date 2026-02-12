@@ -12,147 +12,150 @@
 // ==/UserScript==
 
 const styles = `
-    .cascade-dropdown {
-      box-shadow: rgba(10, 20, 110, 0.22) 0px 2px 10px 0px;
-      position: fixed;
-      display: flex;
-      flex-direction: column;
-      z-index: 99999;
-      max-height: 420px;
-      overflow: hidden;
-      border-radius: 6px;
-    }
+  .cascade-dropdown {
+    box-shadow: rgba(10, 20, 110, 0.22) 0px 2px 10px 0px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    z-index: 99999;
+    max-height: 420px;
+    overflow: hidden;
+    border-radius: 6px;
+  }
 
-    .dropdown-column {
-      height: 100%;
-      background: #fff;
-      border: 1px solid #d0d0d0;
-      border-radius: 6px;
-      min-width: 320px;
-      max-height: 420px;
-      overflow-y: auto;
-      padding: 4px 0;
-      display: flex;
-      flex-direction: column;
-    }
+  .dropdown-header {
+    padding: 8px;
+    background: white;
+  }
 
-    .dropdown-row {
-      color: #1f2937;
-      font-weight: 500;
-      padding: 8px 12px;
-      cursor: pointer;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      user-select: none;
-      min-height: 36px;
-      box-sizing: border-box;
-    }
+  .dropdown-column {
+    height: 100%;
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    min-width: 320px;
+    max-height: 420px;
+    overflow-y: auto;
+    padding: 4px 0;
+    display: flex;
+    flex-direction: column;
+  }
 
-    .dropdown-row:hover {
-      background: #f3f4f6;
-    }
+  .dropdown-row {
+    color: #1f2937;
+    font-weight: 500;
+    padding: 8px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    min-height: 36px;
+    box-sizing: border-box;
+  }
 
-    .dropdown-row.has-children {
-      color: #1f2937;
-      font-weight: 500;
-    }
+  .dropdown-row:hover {
+    background: #f3f4f6;
+  }
 
-    .dropdown-row .arrow {
-      color: #9ca3af;
-      font-size: 14px;
-      margin-left: auto;
-    }
+  .dropdown-row.has-children {
+    color: #1f2937;
+    font-weight: 500;
+  }
 
-    .dropdown-row:hover .arrow {
-      color: #4b5563;
-    }
+  .dropdown-row .arrow {
+    color: #9ca3af;
+    font-size: 14px;
+    margin-left: auto;
+  }
 
-    .task-row {
-      padding: 6px 12px;
-      cursor: default;
-    }
+  .dropdown-row:hover .arrow {
+    color: #4b5563;
+  }
 
-    .task-row:hover {
-      background: #f3f4f6;
-    }
+  .task-row {
+    padding: 6px 12px;
+    cursor: default;
+  }
 
-    .task-checkbox {
-      margin: 0;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
+  .task-row:hover {
+    background: #f3f4f6;
+  }
 
-    .dropdown-actions {
-      padding: 12px;
-      border-top: 1px solid #e5e7eb;
-      margin-top: auto;
-      background: #f9fafb;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+  .task-checkbox {
+    margin: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
 
-    .selection-info {
-      font-size: 12px;
-      color: #6b7280;
-      margin-bottom: 8px;
-    }
+  .dropdown-actions {
+    padding: 12px;
+    border-top: 1px solid #e5e7eb;
+    margin-top: auto;
+    background: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 
-    .insert-button, .clear-button {
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-      font-size: 14px;
-      transition: background-color 0.2s;
-    }
+  .selection-info {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 8px;
+  }
 
-    .insert-button {
-      background-color: rgb(0, 71, 136);
-      color: white;
-    }
+  .insert-button,
+  .clear-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  }
 
-    .insert-button:hover:not(:disabled) {
-      background-color: rgb(35, 95, 166);
-    }
+  .insert-button {
+    background-color: rgb(0, 71, 136);
+    color: white;
+  }
 
-    .insert-button:disabled {
-      background-color: #9ca3af;
-      cursor: not-allowed;
-    }
+  .insert-button:hover:not(:disabled) {
+    background-color: rgb(35, 95, 166);
+  }
 
-    .clear-button {
-      background-color: #f3f4f6;
-      color: #374151;
-      margin-bottom: 8px;
-    }
+  .insert-button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+  }
 
-    .clear-button:hover {
-      background-color: #e5e7eb;
-    }
+  .clear-button {
+    background-color: #f3f4f6;
+    color: #374151;
+    margin-bottom: 8px;
+  }
 
-    .back-button {
-      display: flex;
-      align-items: center;
-      padding: 8px 12px;
-      border-bottom: 1px solid #e5e7eb;
-      margin-bottom: 4px;
-      cursor: pointer;
-      color: rgb(0, 71, 136);
-      font-weight: 500;
-    }
+  .clear-button:hover {
+    background-color: #e5e7eb;
+  }
 
-    .back-button:hover {
-      background: #f3f4f6;
-    }
+  .back-button {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    color: rgb(0, 71, 136);
+    font-weight: 500;
+  }
 
-    .back-button::before {
-      content: "←";
-      margin-right: 8px;
-    }
-  `;
+  .back-button:hover {
+    background: #f3f4f6;
+  }
+
+  .back-button::before {
+    content: "←";
+    margin-right: 8px;
+  }
+`;
 
 const templates = {
   Сопровождение: {
@@ -429,8 +432,13 @@ const templates = {
     popup.style.left = r.left + "px";
     popup.style.top = r.bottom + "px";
 
+    const header = document.createElement("div");
+    header.className = "dropdown-header";
+
     const column = document.createElement("div");
     column.className = "dropdown-column";
+
+    popup.appendChild(header);
     popup.appendChild(column);
 
     const navigationStack = [];
@@ -438,21 +446,23 @@ const templates = {
     const render = () => {
       const oldActions = popup.querySelectorAll(".dropdown-actions");
       oldActions.forEach((el) => el.remove());
+      header.style.display = "none";
+      header.innerHTML = "";
       column.innerHTML = "";
 
       if (navigationStack.length > 0) {
+        header.style.display = "block";
         const backBtn = document.createElement("div");
         backBtn.className = "back-button";
         backBtn.textContent = "Назад";
         backBtn.addEventListener("click", handleBack);
-        column.appendChild(backBtn);
+        header.appendChild(backBtn);
       }
 
       if (navigationStack.length === 0) {
         renderCategories();
       } else if (navigationStack.length === 1) {
-        const category = navigationStack[0];
-        renderSubcategories(category);
+        renderSubcategories(navigationStack[0]);
       } else if (navigationStack.length === 2) {
         const [category, subcategory] = navigationStack;
         renderTasks(category, subcategory);
