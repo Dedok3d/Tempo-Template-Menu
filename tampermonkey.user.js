@@ -3,6 +3,7 @@
 // @namespace https://jira.russianpost.ru/
 // @version 0.1
 // @match *://jira.russianpost.ru/browse/*
+// @match *://jora.ru/secure/Tempo.jspa*
 // @grant none
 // @updateURL    https://raw.githubusercontent.com/Dedok3d/Tempo-Template-Menu/refs/heads/master/tampermonkey.js
 // @downloadURL  https://raw.githubusercontent.com/Dedok3d/Tempo-Template-Menu/refs/heads/master/tampermonkey.js
@@ -150,7 +151,6 @@ const styles = `
     }
   `;
 
-// Исходные данные (без изменений)
 const templates = {
   Сопровождение: {
     "Организационные мероприятия": [
@@ -621,7 +621,7 @@ const templates = {
 
       fresh.focus();
       const currentText = fresh.value.trim();
-      const itemsToInsert = selectedItems.map((item) => item.name).join("\n");
+      const itemsToInsert = selectedItems.map((item) => item.name).join(". ");
 
       const setter = Object.getOwnPropertyDescriptor(
         HTMLTextAreaElement.prototype,
@@ -656,6 +656,7 @@ const templates = {
   }
 
   function mount(textarea) {
+    if (!document.querySelector('[data-testid="tui-modal"]')) return;
     if (document.querySelector("#tempo-cascade-btn")) return;
 
     const btn = createButton(textarea);
