@@ -8,6 +8,7 @@
 
 const styles = `
     .cascade-dropdown {
+      box-shadow: rgba(10, 20, 110, 0.22) 0px 2px 10px 0px;
       position: fixed;
       display: flex;
       z-index: 99999;
@@ -360,7 +361,7 @@ const templates = {
       setTimeout(() => {
         obs.disconnect();
         resolve(document.querySelector("#description"));
-      }, 500);
+      }, 100);
     });
   }
 
