@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Tempo Template Menu
 // @namespace https://jira.russianpost.ru/
-// @version 0.1
+// @version 0.2
 // @description Добавляет кастомное меню шаблонов в модальное окно Tempo
 // @author Dedok3d
 // @match *://jira.russianpost.ru/browse/*
