@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name Tempo Template Menu
 // @namespace https://jira.russianpost.ru/
-// @version 0.2
+// @version 0.1
+// @description Добавляет кастомное меню шаблонов в модальное окно Tempo
+// @author Dedok3d
 // @match *://jira.russianpost.ru/browse/*
 // @match *://jora.ru/secure/Tempo.jspa*
 // @grant none
-// @updateURL    https://raw.githubusercontent.com/Dedok3d/Tempo-Template-Menu/refs/heads/master/tampermonkey.js
-// @downloadURL  https://raw.githubusercontent.com/Dedok3d/Tempo-Template-Menu/refs/heads/master/tampermonkey.js
+// @updateURL    https://raw.githubusercontent.com/Dedok3d/Tempo-Template-Menu/refs/heads/master/tampermonkey.user.js
+// @downloadURL  https://raw.githubusercontent.com/Dedok3d/Tempo-Template-Menu/refs/heads/master/tampermonkey.user.js
 // ==/UserScript==
 
 const styles = `
