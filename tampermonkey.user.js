@@ -658,7 +658,7 @@ const templates = {
   }
 
   function mount(textarea) {
-    if (!document.querySelector('[data-testid="tui-modal"]')) return;
+    if (!document.querySelector("#worklogForm")) return;
     if (document.querySelector("#tempo-cascade-btn")) return;
 
     const btn = createButton(textarea);
