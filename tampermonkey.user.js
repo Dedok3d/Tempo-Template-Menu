@@ -5,7 +5,7 @@
 // @description Добавляет кастомное меню шаблонов в модальное окно Tempo
 // @author Dedok3d
 // @match *://jira.russianpost.ru/browse/*
-// @match *://jora.ru/secure/Tempo.jspa*
+// @match *://jira.russianpost.ru/secure/Tempo.jspa*
 // @grant none
 // @updateURL    https://raw.githubusercontent.com/Dedok3d/Tempo-Template-Menu/refs/heads/master/tampermonkey.user.js
 // @downloadURL  https://raw.githubusercontent.com/Dedok3d/Tempo-Template-Menu/refs/heads/master/tampermonkey.user.js
@@ -16,6 +16,7 @@ const styles = `
       box-shadow: rgba(10, 20, 110, 0.22) 0px 2px 10px 0px;
       position: fixed;
       display: flex;
+      flex-direction: column;
       z-index: 99999;
       max-height: 420px;
       overflow: hidden;
@@ -109,12 +110,12 @@ const styles = `
     }
 
     .insert-button {
-      background-color: #3b82f6;
+      background-color: rgb(0, 71, 136);
       color: white;
     }
 
     .insert-button:hover:not(:disabled) {
-      background-color: #2563eb;
+      background-color: rgb(35, 95, 166);
     }
 
     .insert-button:disabled {
@@ -139,7 +140,7 @@ const styles = `
       border-bottom: 1px solid #e5e7eb;
       margin-bottom: 4px;
       cursor: pointer;
-      color: #3b82f6;
+      color: rgb(0, 71, 136);
       font-weight: 500;
     }
 
@@ -435,6 +436,8 @@ const templates = {
     const navigationStack = [];
 
     const render = () => {
+      const oldActions = popup.querySelectorAll(".dropdown-actions");
+      oldActions.forEach((el) => el.remove());
       column.innerHTML = "";
 
       if (navigationStack.length > 0) {
@@ -574,7 +577,7 @@ const templates = {
       actionsRow.appendChild(selectionInfo);
       actionsRow.appendChild(clearButton);
       actionsRow.appendChild(insertButton);
-      column.appendChild(actionsRow);
+      popup.appendChild(actionsRow);
     };
 
     const handleCategoryClick = (category) => {
